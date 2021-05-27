@@ -42,6 +42,7 @@ try{
             //send GETS Command
             dout.write(("GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n").getBytes());
             dout.flush();
+            int reqCore = Integer.parseInt(jobn[4]);
 
             //read DATA
             String reply4=in.readLine();
@@ -52,9 +53,32 @@ try{
             dout.write(("OK"+"\n").getBytes());
             dout.flush();
 
+            String serverType=" ";
+            String serverID =" ";
+
             //read SERVER INFO
             for(int i=0; i<servAmountNum; i++){
                 String reply5=in.readLine();
+                String[] serverArray=reply5.split(" ");
+                int availCore = Integer.parseInt(serverArray[4]);
+                if(serverArray[2]=="inactive" && availCore>=reqCore){
+                    serverType=serverArray[0];
+                    serverID=serverArray[1];
+                    i+=servAmountNum;
+                }
+                if(serverArray[2]=="booting" && availCore>=reqCore){
+                    serverType=serverArray[0];
+                    serverID=serverArray[1];
+                    i+=servAmountNum;
+                }
+                if(serverArray[2]=="active" && availCore>=reqCore){
+                    serverType=serverArray[0];
+                    serverID=serverArray[1];
+                    i+=servAmountNum;
+                }
+
+                serverType=serverArray[0];
+                serverID=serverArray[1];
             }
 
             //Send OK
@@ -66,7 +90,7 @@ try{
 
 
             //Send SCHD command (JOBID SERVERTYPE SERVER ID)
-            dout.write(("SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n").getBytes());
+            dout.write(("SCHD "+jobn[2]+" "+serverType+" "+serverID+"\n").getBytes());
             dout.flush();
 
             //read OK
