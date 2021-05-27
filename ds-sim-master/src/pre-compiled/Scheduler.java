@@ -64,17 +64,14 @@ try{
                 if(serverArray[2]=="inactive" && availCore>=reqCore){
                     serverType=serverArray[0];
                     serverID=serverArray[1];
-                    i+=servAmountNum;
                 }
                 if(serverArray[2]=="booting" && availCore>=reqCore){
                     serverType=serverArray[0];
                     serverID=serverArray[1];
-                    i+=servAmountNum;
                 }
                 if(serverArray[2]=="active" && availCore>=reqCore){
                     serverType=serverArray[0];
                     serverID=serverArray[1];
-                    i+=servAmountNum;
                 }
 
                 serverType=serverArray[0];
