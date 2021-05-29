@@ -14,7 +14,7 @@ try{
     dout.write(("HELO"+"\n").getBytes());
     dout.flush();
 
-    String reply=in.readLine();
+    String reply=(String)in.readLine();
 
     String username = System.getProperty("user.name");
     dout.write(("AUTH "+username+"\n").getBytes());
@@ -61,21 +61,10 @@ try{
                 String reply5=in.readLine();
                 String[] serverArray=reply5.split(" ");
                 int availCore = Integer.parseInt(serverArray[4]);
-                if(serverArray[2]=="inactive" && availCore>=reqCore){
+                if(i==0){
                     serverType=serverArray[0];
                     serverID=serverArray[1];
                 }
-                if(serverArray[2]=="booting" && availCore>=reqCore){
-                    serverType=serverArray[0];
-                    serverID=serverArray[1];
-                }
-                if(serverArray[2]=="active" && availCore>=reqCore){
-                    serverType=serverArray[0];
-                    serverID=serverArray[1];
-                }
-
-                serverType=serverArray[0];
-                serverID=serverArray[1];
             }
 
             //Send OK
