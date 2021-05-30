@@ -119,11 +119,11 @@ try{
                     String reply5=in.readLine();
                     String[] serverArray=reply5.split(" ");
                     availCore = Integer.parseInt(serverArray[4]);
-                    if(i==0 && serverArray[2]!="active"){
+                    if(i==0){
                         serverType=serverArray[0];
                         serverID=serverArray[1];
                     }
-                    if(serverArray[2]!="active"){
+                    if((availCore-reqCore)>=1){
                         fitValue=fitValue+1;
                     }
                     if(fitValue==1){
